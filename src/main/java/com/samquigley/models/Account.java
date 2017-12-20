@@ -3,11 +3,15 @@ package com.samquigley.models;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 @Table
@@ -68,10 +72,25 @@ public class Account implements Serializable {
     public void setSort_code(int sort_code) {
         this.sort_code = sort_code;
     }
+    @ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="user_id")
+    private Customer user;
+
+    @XmlTransient
+    public Customer getUser() {
+        return user;
+    }
+
+    public void setUser(Customer user) {
+        this.user = user;
+    }
 
     @Override
     public String toString() {
-        return "Account{" + "accountId=" + accountId + ", acc_no=" + acc_no + ", sort_code=" + sort_code + ", balance=" + balance + '}';
+        return "Account{" + "accountId=" + accountId + ", user=" + user.getName() + '}';
     }
+    
+
+    
 
 }
