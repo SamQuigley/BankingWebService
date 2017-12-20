@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -40,6 +41,8 @@ public class Account implements Serializable {
         this.sort_code = sort_code;
         this.balance = balance;
     }
+    
+    
 
     public int getAccountId() {
         return accountId;
@@ -72,8 +75,8 @@ public class Account implements Serializable {
     public void setSort_code(int sort_code) {
         this.sort_code = sort_code;
     }
-    @ManyToOne(fetch=FetchType.EAGER)
-    @JoinColumn(name="user_id")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
     private Customer user;
 
     @XmlTransient
@@ -89,8 +92,5 @@ public class Account implements Serializable {
     public String toString() {
         return "Account{" + "accountId=" + accountId + ", user=" + user.getName() + '}';
     }
-    
-
-    
 
 }
