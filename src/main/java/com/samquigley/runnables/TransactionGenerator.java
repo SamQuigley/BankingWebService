@@ -15,11 +15,14 @@ public class TransactionGenerator {
         EntityManager entitymanager = emfactory.createEntityManager();
         entitymanager.getTransaction().begin();
 
-        Customer user1 = new Customer("John", 100);
-        Customer user2 = new Customer("Sammy", 54);
-        Customer user3 = new Customer("Ronan", 52);
-        Customer user4 = new Customer("Eathna", 52);
-        Account acc = new Account();
+        Customer user1 = new Customer("John", 100,"5 ormond avenue", "samq2011@live.com");
+        Customer user2 = new Customer("Sammy", 54,"5 ormond avenue", "samq2011@live.com");
+        Customer user3 = new Customer("Ronan", 52,"5 ormond avenue", "samq2011@live.com");
+        Customer user4 = new Customer("Eathna", 52,"5 ormond avenue", "samq2011@live.com");
+        
+        Account acc1 = new Account();
+        Account acc2 = new Account();
+        Account acc3 = new Account();
        
 
         entitymanager.persist(user1);
@@ -33,25 +36,32 @@ public class TransactionGenerator {
         Transaction trans4 = new Transaction();
 
         trans1.setType("Debit");
-        trans1.setAmount(200);
+        trans1.setAmount(50);
+        trans1.setDesc("Nandos");
 
         trans2.setType("Credit");
-        trans2.setAmount(100);
+        trans2.setAmount(30);
+        trans2.setDesc("Cinema - Star Wars The Last Jedi");
 
         trans3.setType("Credit");
-        trans3.setAmount(20);
+        trans3.setAmount(9.99);
+        trans3.setDesc("Netflix");
 
         trans4.setType("Debit");
-        trans4.setAmount(1000);
+        trans4.setAmount(15.99);
+        trans4.setDesc("Spotify Family");
+        
+        
+       
 
         trans1.setUser(user1);
-        trans1.setAcc(acc);
-        trans2.setUser(user2);
-        trans2.setAcc(acc);
+        trans1.setAcc(acc1);
+        trans2.setUser(user1);
+        trans2.setAcc(acc1);
         trans3.setUser(user3);
-        trans3.setAcc(acc);
+        trans3.setAcc(acc3);
         trans4.setUser(user4);
-        trans4.setAcc(acc);
+        trans4.setAcc(acc3);
 
         ArrayList<Transaction> list = new ArrayList<>();
         list.add(trans1);

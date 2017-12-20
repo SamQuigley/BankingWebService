@@ -15,7 +15,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
-@Table
+@Table(name="ACCOUNT")
 @XmlRootElement
 public class Account implements Serializable {
 
@@ -76,7 +76,7 @@ public class Account implements Serializable {
         this.sort_code = sort_code;
     }
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "customer_id")
     private Customer user;
 
     @XmlTransient
