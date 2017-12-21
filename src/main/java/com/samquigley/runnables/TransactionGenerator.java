@@ -38,18 +38,22 @@ public class TransactionGenerator {
         trans1.setType("Debit");
         trans1.setAmount(50);
         trans1.setDesc("Nandos");
+        trans1.getDate();
 
         trans2.setType("Credit");
         trans2.setAmount(30);
         trans2.setDesc("Cinema - Star Wars The Last Jedi");
+        trans2.getDate();
 
         trans3.setType("Credit");
         trans3.setAmount(9.99);
         trans3.setDesc("Netflix");
+        trans3.getDate();
 
         trans4.setType("Debit");
         trans4.setAmount(15.99);
         trans4.setDesc("Spotify Family");
+        trans4.getDate();
         
         
        

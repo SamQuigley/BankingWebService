@@ -12,6 +12,7 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import javax.transaction.Transactional;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -44,7 +45,7 @@ public class AccountService {
     curl -v -H "Accept: application/xml" -H "API_KEY:VALID_KEY" http://localhost:8080/api/accounts
     ------------------------------------------------------------------------------------------------
     GET ACCOUNT BY ID & LIST OF TRANSACTIONS IF NOT NULL
-    curl -v -H "Accept: application/json" -H "API_KEY:VALID_KEY" http://localhost:8080/api/accounts/1
+    curl -v -H "Accept: application/json" -H "API_KEY:VALID_KEY" http://localhost:8080/api/accounts/2
     curl -v -H "Accept: application/xml" -H "API_KEY:VALID_KEY" http://localhost:8080/api/accounts/1
     ------------------------------------------------------------------------------------------------
     DELETE ACCOUNT BY ID
@@ -123,6 +124,55 @@ public class AccountService {
         entityManager.getTransaction().commit();
         entityManager.close();
         return Response.status(200).entity(c).build();
+    }
+
+    /*
+    ------------------------------------------------------------------------------------------------
+                            **********LODGEMENT & WITHDRAWL FUNCTIONALITY**********
+    ------------------------------------------------------------------------------------------------
+    LODGEMENT --> does not work --> returns 200
+    curl -v -X POST -H "API_KEY:VALID_KEY" "http://localhost:8080/api/accounts/2/lodgement/45.67"
+    ------------------------------------------------------------------------------------------------
+    WITHDRAWL --> does not work --> returns 200
+    curl -v -X POST -H "API_KEY:VALID_KEY" "http://localhost:8080/api/accounts/2/withdrawl/1000.00"
+    ------------------------------------------------------------------------------------------------
+     */
+    @POST
+    @Path("{id}/lodgement/{lodgement}")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Transactional
+    public Account lodgement(@PathParam("id") int id, @QueryParam("lodgement") double lodgement) {
+        Account Account = entityManager.find(Account.class, id);
+        if (Account == null) {
+            throw new NotFoundException("BALANCE HAS NOT BEEN UPDATED -- ERROR OCCURED");
+        }
+        entityManager.getTransaction().begin();
+        double balance = Account.getBalance();
+        double newBal = balance + lodgement;
+        Account.setBalance(newBal);
+        entityManager.flush();
+        entityManager.getTransaction().commit();
+//      entityManager.close();
+        return Account;
+    }
+
+    @POST
+    @Path("{id}/withdrawl/{withdrawl}")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Transactional
+    public Account withdrawl(@PathParam("id") int id, @QueryParam("withdrawl") double withdrawl) {
+        Account Account = entityManager.find(Account.class, id);
+        if (Account == null) {
+            throw new NotFoundException("BALANCE HAS NOT BEEN UPDATED -- ERROR OCCURED");
+        }
+        entityManager.getTransaction().begin();
+        double balance = Account.getBalance();
+        double newBal = balance - withdrawl;
+        Account.setBalance(newBal);
+        entityManager.flush();
+        entityManager.getTransaction().commit();
+//      entityManager.close();
+        return Account;
     }
 
 }

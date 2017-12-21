@@ -1,6 +1,9 @@
 package com.samquigley.models;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,11 +17,14 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import java.util.Date;
 
 @Entity
-@Table(name="TRANSACTION")
+@Table(name = "TRANSACTION")
 @XmlRootElement
 public class Transaction implements Serializable {
+
+//    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -30,6 +36,24 @@ public class Transaction implements Serializable {
     private double amount;
     @Column(name = "transaction_description")
     private String desc;
+    @Column(name = "transaction_date", length = 255)
+    private Date date;
+    
+    public Transaction() {
+       
+        date = new Date();
+    }
+    
+
+    public Transaction(String type, double amount, String desc) {
+
+        this.type = type;
+        this.amount = amount;
+        this.desc = desc;
+       
+        
+
+    }
 
     public String getType() {
         return type;
@@ -63,6 +87,14 @@ public class Transaction implements Serializable {
         this.id = id;
     }
 
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "customer_id")
     private Customer user;
@@ -89,13 +121,9 @@ public class Transaction implements Serializable {
         this.acc = acc;
     }
 
-//    @Override
-//    public String toString() {
-//        return "Transaction{" + "id=" + id + ", user=" + user.getName() + '}';
-//    }
     @Override
     public String toString() {
-        return "Transaction{" + "id=" + id + ", user=" + user.getName() + ", acc=" + acc.getAccountId() + '}';
+        return "Transaction{" + "id=" + id + ", user=" + user.getName() + ", acc=" + acc.getAccountId() + ", type=" + type+ ", amount=" + amount+ ", desc=" + desc+ '}';
     }
 
 }

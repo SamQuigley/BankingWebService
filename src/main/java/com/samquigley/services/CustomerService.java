@@ -43,9 +43,8 @@ public class CustomerService {
     curl -v -H "Accept: application/json" -H "API_KEY:VALID_KEY" http://localhost:8080/api/customers/1
     curl -v -H "Accept: application/xml" -H "API_KEY:VALID_KEY" http://localhost:8080/api/customers/1
     ------------------------------------------------------------------------------------------------
-    GET CUSTOMER AND THEIR TRANSACTIONS 
+    GET CUSTOMER AND THEIR TRANSACTIONS  --> does not work
     curl -v -H "Accept: application/json" -H "API_KEY:VALID_KEY" http://localhost:8080/api/customers/9/transactions
-    
     ------------------------------------------------------------------------------------------------
     GET CUSTOMER BY ID AND THEIR TRANSACTIONS BY ID - does not work - 500 internal server error
     curl -v -H "Accept: application/json" -H "API_KEY:VALID_KEY" http://localhost:8080/api/customers/2/transactions/3
