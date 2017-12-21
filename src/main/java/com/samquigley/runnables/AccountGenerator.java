@@ -14,10 +14,10 @@ public class AccountGenerator {
         EntityManager entitymanager = emfactory.createEntityManager();
         entitymanager.getTransaction().begin();
 
-       Customer user1 = new Customer("Sam", 21, "5 ormond avenue", "samq2011@live.com");
-       Customer user2 = new Customer("Henry", 24,"7 ormond avenue", "henry2011@live.com");
-       Customer user3 = new Customer("Antonia", 22,"9 ormond avenue", "antonia2011@live.com");
-       Customer user4 = new Customer("Rocky", 75,"10 ormond cresent", "rocky2011@live.com");
+       Customer user1 = new Customer("Sam", 21, "5 ormond avenue", "samq2011@live.com",(int) Math.floor(Math.random() * 9999));
+       Customer user2 = new Customer("Henry", 24,"7 ormond avenue", "henry2011@live.com",(int) Math.floor(Math.random() * 9999));
+       Customer user3 = new Customer("Antonia", 22,"9 ormond avenue", "antonia2011@live.com",(int) Math.floor(Math.random() * 9999));
+       Customer user4 = new Customer("Rocky", 75,"10 ormond cresent", "rocky2011@live.com",(int) Math.floor(Math.random() * 9999));
       
 
         entitymanager.persist(user1);

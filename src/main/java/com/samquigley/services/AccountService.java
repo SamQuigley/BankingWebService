@@ -90,20 +90,20 @@ public class AccountService {
 
     @DELETE
     @Path("{id}")
-    public Response deleteAccount(@PathParam("id") int id) {
+    public String deleteAccount(@PathParam("id") int id) {
         Account Account = entityManager.find(Account.class, id);
         entityManager.getTransaction().begin();
         entityManager.remove(Account);
         entityManager.createNativeQuery("ALTER TABLE account AUTO_INCREMENT = 1").executeUpdate();
         entityManager.getTransaction().commit();
         Account.setAccountId(id - 1);
-        return Response.status(Response.Status.ACCEPTED).build();
+        return "Account Deleted";
     }
 
     @POST
     @Path("{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Account update(@PathParam("id") int id, @QueryParam("balance") double balance) {
+    public Account updateBalance(@PathParam("id") int id, @QueryParam("balance") double balance) {
         Account Account = entityManager.find(Account.class, id);
         if (Account == null) {
             throw new NotFoundException("BALANCE HAS NOT BEEN UPDATED -- ERROR OCCURED");
@@ -117,7 +117,7 @@ public class AccountService {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Response save(Account c) {
+    public Response createAccount(Account c) {
         entityManager.getTransaction().begin();
         entityManager.persist(c);
         entityManager.flush();

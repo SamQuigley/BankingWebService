@@ -108,7 +108,7 @@ public class Transaction implements Serializable {
         this.user = user;
     }
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "account_id")
     private Account acc;
 

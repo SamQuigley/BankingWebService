@@ -87,6 +87,7 @@ public class Account implements Serializable {
     public void setUser(Customer user) {
         this.user = user;
     }
+    
 
     @Override
     public String toString() {

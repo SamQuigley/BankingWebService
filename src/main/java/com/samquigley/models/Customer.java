@@ -45,7 +45,7 @@ public class Customer implements Serializable {
     @Column(name = "customer_credentials")
     private int pin;
 
-    public Customer(String name, int age, String address, String email) {
+    public Customer(String name, int age, String address, String email,int pin) {
         trans = new ArrayList<>();
         this.name = name;
         this.age = age;

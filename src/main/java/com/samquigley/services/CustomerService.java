@@ -1,6 +1,6 @@
 package com.samquigley.services;
 
-import com.samquigley.models.Account;
+import com.samquigley.models.Customer;
 import com.samquigley.models.Transaction;
 import com.samquigley.models.Customer;
 import java.util.List;
@@ -12,6 +12,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -53,6 +54,9 @@ public class CustomerService {
     curl -v -H "Accept: application/json" -H "API_KEY:VALID_KEY" -H "Content-type: application/json" http://localhost:8080/api/customers -d '{"name":"john o connell", "address":"malahide road", "age":35, "email":"john@gmail.com", "pin":4852}'
     curl -v -H "Accept: application/xml" -H "API_KEY:VALID_KEY" -H "Content-type: application/json" http://localhost:8080/api/customers -d '{"name":"john o connell", "address":"malahide road", "age":35, "email":"john@gmail.com", "pin":4852}'
     ------------------------------------------------------------------------------------------------
+    DELETE ACCOUNT BY ID
+    curl -v -X DELETE -H "API_KEY:VALID_KEY" http://localhost:8080/api/customers/1
+    ------------------------------------------------------------------------------------------------
      */
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
@@ -75,7 +79,7 @@ public class CustomerService {
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Path("/{id}")
-    public Customer getUser(@PathParam("id") int id) {
+    public Customer getCustomer(@PathParam("id") int id) {
         Customer test = entityManager.find(Customer.class, id);
         System.out.println(test);
         return test;
@@ -84,7 +88,7 @@ public class CustomerService {
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Path("/{id}/transactions")
-    public List<Transaction> getTransfers(@PathParam("id") int id) {
+    public List<Transaction> getCustomerTransactions(@PathParam("id") int id) {
         Customer test = entityManager.find(Customer.class, id);
         List<Transaction> transfers = test.getTransactions();
         return transfers;
@@ -93,17 +97,29 @@ public class CustomerService {
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Path("/{id}/transactions/{tid}")
-    public Transaction getTransfer(@PathParam("id") int id, @PathParam("tid") int tid) {
+    public Transaction getTransactionsById(@PathParam("id") int id, @PathParam("tid") int tid) {
         Customer test = entityManager.find(Customer.class, id);
         List<Transaction> transactions = test.getTransactions();
         Transaction target = transactions.get(id);
         return target;
     }
+    
+    @DELETE
+    @Path("{id}")
+    public String deleteCustomer(@PathParam("id") int id) {
+        Customer Customer = entityManager.find(Customer.class, id);
+        entityManager.getTransaction().begin();
+        entityManager.remove(Customer);
+        entityManager.createNativeQuery("ALTER TABLE Customer AUTO_INCREMENT = 1").executeUpdate();
+        entityManager.getTransaction().commit();
+        Customer.setId(id - 1);
+        return "Customer Deleted";
+    }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Response save(Customer c) {
+    public Response createCustomer(Customer c) {
         entityManager.getTransaction().begin();
         entityManager.persist(c);
 //        entityManager.flush();

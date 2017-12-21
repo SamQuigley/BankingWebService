@@ -12,10 +12,10 @@ public class CustomerGenerator {
         EntityManager entitymanager = emfactory.createEntityManager();
         entitymanager.getTransaction().begin();
 
-        Customer a = new Customer("Mary", (int) Math.floor(Math.random() * 50),"5 ormond avenue", "samq2011@live.com");
-        Customer b = new Customer("Harry", (int) Math.floor(Math.random() * 50),"5 ormond avenue", "samq2011@live.com");
-        Customer c = new Customer("Bob Geldof", (int) Math.floor(Math.random() * 50),"5 ormond avenue", "samq2011@live.com");
-        Customer d = new Customer("Larry Mulllins", (int) Math.floor(Math.random() * 50),"5 ormond avenue", "samq2011@live.com");
+        Customer a = new Customer("Mary", (int) Math.floor(Math.random() * 50), "5 ormond avenue", "samq2011@live.com", (int) Math.floor(Math.random() * 9999));
+        Customer b = new Customer("Harry", (int) Math.floor(Math.random() * 50), "5 ormond avenue", "samq2011@live.com", (int) Math.floor(Math.random() * 9999));
+        Customer c = new Customer("Bob Geldof", (int) Math.floor(Math.random() * 50), "5 ormond avenue", "samq2011@live.com", (int) Math.floor(Math.random() * 9999));
+        Customer d = new Customer("Larry Mulllins", (int) Math.floor(Math.random() * 50), "5 ormond avenue", "samq2011@live.com", (int) Math.floor(Math.random() * 9999));
 
         entitymanager.persist(a);
         entitymanager.persist(b);

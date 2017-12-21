@@ -15,10 +15,10 @@ public class TransactionGenerator {
         EntityManager entitymanager = emfactory.createEntityManager();
         entitymanager.getTransaction().begin();
 
-        Customer user1 = new Customer("John", 100,"5 ormond avenue", "samq2011@live.com");
-        Customer user2 = new Customer("Sammy", 54,"5 ormond avenue", "samq2011@live.com");
-        Customer user3 = new Customer("Ronan", 52,"5 ormond avenue", "samq2011@live.com");
-        Customer user4 = new Customer("Eathna", 52,"5 ormond avenue", "samq2011@live.com");
+        Customer user1 = new Customer("John", 100,"5 ormond avenue", "samq2011@live.com",(int) Math.floor(Math.random() * 9999));
+        Customer user2 = new Customer("Sammy", 54,"5 ormond avenue", "samq2011@live.com",(int) Math.floor(Math.random() * 9999));
+        Customer user3 = new Customer("Ronan", 52,"5 ormond avenue", "samq2011@live.com",(int) Math.floor(Math.random() * 9999));
+        Customer user4 = new Customer("Eathna", 52,"5 ormond avenue", "samq2011@live.com",(int) Math.floor(Math.random() * 9999));
         
         Account acc1 = new Account();
         Account acc2 = new Account();
