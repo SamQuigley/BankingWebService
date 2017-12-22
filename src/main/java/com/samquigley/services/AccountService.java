@@ -25,6 +25,13 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
+import javax.xml.transform.stream.StreamSource;
+import org.eclipse.persistence.jaxb.MarshallerProperties;
+import org.eclipse.persistence.jaxb.UnmarshallerProperties;
 
 @Path("/accounts")
 public class AccountService {
@@ -134,33 +141,42 @@ public class AccountService {
     curl -v -X POST -H "API_KEY:VALID_KEY" "http://localhost:8080/api/accounts/2/lodgement/45.67"
     ------------------------------------------------------------------------------------------------
     WITHDRAWL --> does not work --> returns 200
-    curl -v -X POST -H "API_KEY:VALID_KEY" "http://localhost:8080/api/accounts/2/withdrawl/1000.00"
+    curl -v -X POST -H "API_KEY:VALID_KEY" "http://localhost:8080/api/accounts/2/withdrawl/45.00"
     ------------------------------------------------------------------------------------------------
      */
     @POST
     @Path("{id}/lodgement/{lodgement}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Transactional
-    public Account lodgement(@PathParam("id") int id, @QueryParam("lodgement") double lodgement) {
+    public double lodgement(@PathParam("id") int id, @QueryParam("lodgement") double lodgement) throws JAXBException {
         Account Account = entityManager.find(Account.class, id);
         if (Account == null) {
             throw new NotFoundException("BALANCE HAS NOT BEEN UPDATED -- ERROR OCCURED");
         }
-        entityManager.getTransaction().begin();
+       // Create a JaxBContext
+//        JAXBContext jc = JAXBContext.newInstance(Account.class);
+//        Unmarshaller unmarshaller = jc.createUnmarshaller();
+//        unmarshaller.setProperty(UnmarshallerProperties.MEDIA_TYPE,"application/json");
+//        unmarshaller.setProperty(UnmarshallerProperties.JSON_INCLUDE_ROOT, true);  
+//        Account acc= unmarshaller.unmarshal(lodgement, Account.class).getValue();
+
         double balance = Account.getBalance();
         double newBal = balance + lodgement;
+
         Account.setBalance(newBal);
+        entityManager.getTransaction().begin();
+        entityManager.persist(newBal);
         entityManager.flush();
         entityManager.getTransaction().commit();
 //      entityManager.close();
-        return Account;
+        return newBal;
     }
 
     @POST
     @Path("{id}/withdrawl/{withdrawl}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Transactional
-    public Account withdrawl(@PathParam("id") int id, @QueryParam("withdrawl") double withdrawl) {
+    public double withdrawl(@PathParam("id") int id, @QueryParam("withdrawl") double withdrawl) {
         Account Account = entityManager.find(Account.class, id);
         if (Account == null) {
             throw new NotFoundException("BALANCE HAS NOT BEEN UPDATED -- ERROR OCCURED");
@@ -172,7 +188,7 @@ public class AccountService {
         entityManager.flush();
         entityManager.getTransaction().commit();
 //      entityManager.close();
-        return Account;
+        return newBal;
     }
 
 }

@@ -52,7 +52,7 @@ public class CustomerService {
     ------------------------------------------------------------------------------------------------
     CREATE NEW CUSTOMER
     curl -v -H "Accept: application/json" -H "API_KEY:VALID_KEY" -H "Content-type: application/json" http://localhost:8080/api/customers -d '{"name":"john o connell", "address":"malahide road", "age":35, "email":"john@gmail.com", "pin":4852}'
-    curl -v -H "Accept: application/xml" -H "API_KEY:VALID_KEY" -H "Content-type: application/json" http://localhost:8080/api/customers -d '{"name":"john o connell", "address":"malahide road", "age":35, "email":"john@gmail.com", "pin":4852}'
+    curl -v -H "Accept: application/xml" -H "API_KEY:VALID_KEY" -H "Content-type: application/xml" http://localhost:8080/api/customers -d '{"name":"john o connell", "address":"malahide road", "age":35, "email":"john@gmail.com", "pin":4852}'
     ------------------------------------------------------------------------------------------------
     DELETE ACCOUNT BY ID
     curl -v -X DELETE -H "API_KEY:VALID_KEY" http://localhost:8080/api/customers/1
@@ -94,7 +94,7 @@ public class CustomerService {
         return transfers;
     }
 
-    @GET
+    @GET//500 response from server
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Path("/{id}/transactions/{tid}")
     public Transaction getTransactionsById(@PathParam("id") int id, @PathParam("tid") int tid) {

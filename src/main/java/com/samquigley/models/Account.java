@@ -41,9 +41,12 @@ public class Account implements Serializable {
         this.sort_code = sort_code;
         this.balance = balance;
     }
-    
-    
 
+    
+    
+    
+    
+ 
     public int getAccountId() {
         return accountId;
     }
@@ -75,6 +78,7 @@ public class Account implements Serializable {
     public void setSort_code(int sort_code) {
         this.sort_code = sort_code;
     }
+    
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "customer_id")
     private Customer user;

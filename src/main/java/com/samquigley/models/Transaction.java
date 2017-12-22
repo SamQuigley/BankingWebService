@@ -25,7 +25,6 @@ import java.util.Date;
 public class Transaction implements Serializable {
 
 //    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "transaction_id")
@@ -38,20 +37,16 @@ public class Transaction implements Serializable {
     private String desc;
     @Column(name = "transaction_date", length = 255)
     private Date date;
-    
+
     public Transaction() {
-       
         date = new Date();
     }
-    
 
     public Transaction(String type, double amount, String desc) {
 
         this.type = type;
         this.amount = amount;
         this.desc = desc;
-       
-        
 
     }
 
@@ -123,7 +118,7 @@ public class Transaction implements Serializable {
 
     @Override
     public String toString() {
-        return "Transaction{" + "id=" + id + ", user=" + user.getName() + ", acc=" + acc.getAccountId() + ", type=" + type+ ", amount=" + amount+ ", desc=" + desc+ '}';
+        return "Transaction{" + "id=" + id + ", user=" + user.getName() + ", acc=" + acc.getAccountId() + ", type=" + type + ", amount=" + amount + ", desc=" + desc + '}';
     }
 
 }

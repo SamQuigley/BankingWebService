@@ -53,9 +53,10 @@ public class Customer implements Serializable {
         this.email = email;
         this.pin=pin;
     }
+    
 
     public Customer() {
-        trans = new ArrayList<>();
+        
     }
 
     public int getId() {
