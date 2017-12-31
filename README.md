@@ -4,9 +4,9 @@ This project is part of my Web Services & API Development module @ the National 
 
 # Project Flow
 ```
-Model classes     -  with JPA create table & column structure in MySQL.
-Runnble classes   -  populate database tables 
-Services classes  -  Interact with the database through curl commands & HTTP verbs
+Model classes, with JPA create table & column structure in MySQL.
+Runnble classes, populate database tables 
+Services classes, Interact with the database through curl commands & HTTP verbs
 ```
 
 ### Prerequisites
