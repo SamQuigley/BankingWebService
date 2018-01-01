@@ -12,8 +12,8 @@ Back-end configuration implemented using Java Persistance API(JPA).
 # Project Flow
 ```
 Model classes, with JPA create table & column structure in MySQL.
-Runnable classes, populate database tables 
-Services classes, Interact with the database through curl commands & HTTP verbs
+Runnable classes, populate database tables.
+Services classes, Interact with the database through curl commands & HTTP verbs.
 ```
 
 ### Prerequisites
