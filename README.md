@@ -2,6 +2,13 @@
 
 This project is part of my Web Services & API Development module @ the National College of Ireland, delivered by Dr. Carr. 
 
+# Stack
+```
+Developed using Java and jersey.
+Deployed using Jetty.
+Back-end configuration implemented using Java Persistance API(JPA).  
+```
+
 # Project Flow
 ```
 Model classes, with JPA create table & column structure in MySQL.
@@ -13,7 +20,6 @@ Services classes, Interact with the database through curl commands & HTTP verbs
 
 ```
 Java
-Maven
 MySQL Server
 MySQL Workbench
 ```
